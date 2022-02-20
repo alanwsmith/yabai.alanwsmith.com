@@ -24,13 +24,14 @@ const some_object = { key: 'value' }
       />
 
       <h1>Yabai Automatic Layout Scripts</h1>
-      
+
       <p>NOTE: This page is still a work in progress</p>
 
       <p>
-        I'm using the <a href="https://github.com/koekeishiya/yabai">Yabai</a>{' '}
-        tiling window manager on my mac. Having windows automatically position
-        themselves is a suprisingly large quality of life improvement.{' '}
+        I&apos;m using the{' '}
+        <a href="https://github.com/koekeishiya/yabai">Yabai</a> tiling window
+        manager on my mac. Having windows automatically position themselves is a
+        suprisingly large quality of life improvement.{' '}
       </p>
       <p>
         The one thing that bugged me is that it can be difficult to get windows
@@ -41,7 +42,10 @@ const some_object = { key: 'value' }
       <p>It looks like this:</p>
 
       <div className="pb-6">
-        <Image src={yabai_layout_script_example} />
+        <Image
+          src={yabai_layout_script_example}
+          alt="An animated image showing application windows moving and resizing on a desktop space automatically"
+        />
       </div>
 
       <h2>TL;DR - Setup And Run</h2>
@@ -97,11 +101,14 @@ sudo yabai --load-sa
 
       <p>
         After the windows are are in place, you can drag them around and
-        everything resizes automaticaly. It's like magic.
+        everything resizes automaticaly. It&apos;s like magic.
       </p>
 
       <div className="pb-6">
-        <Image src={yabai_resize_example} />
+        <Image
+          src={yabai_resize_example}
+          alt="An animated image showing a mouse dragging one applicaiton window and all the surrounding windows adjusting automatically"
+        />
       </div>
 
       <h2>Yabai Installation Details</h2>
@@ -111,7 +118,7 @@ sudo yabai --load-sa
       </p>
 
       <p>
-        I installed Yabai from the HEAD branch since I'm using an M1 Mac.
+        I installed Yabai from the HEAD branch since I&apos;m using an M1 Mac.
         (I&apos;m not sure if that&apos;s required but it seemed like a good
         idea.) Using the HEAD branch requires creating a self-signed
         certificate. Directions for that and the install{' '}
@@ -153,7 +160,7 @@ codesign -fs 'yabai-cert' $(which yabai)
         <a href="https://github.com/koekeishiya/yabai/wiki/Commands#message-passing-interface">
           message passing interface
         </a>
-        . I use python3 from homebrew, but I think there's a system python3
+        . I use python3 from homebrew, but I think there&apos;s a system python3
         installed on macs so you should be able to run the scripts without any
         other installs like:
       </p>
@@ -164,8 +171,8 @@ codesign -fs 'yabai-cert' $(which yabai)
 
       <ul>
         <li>
-          You'll need to have already created your spaces prior to running the
-          script
+          You&apos;ll need to have already created your spaces prior to running
+          the script
         </li>
         <li>
           The script will attempt to open apps if they aren&apos;t already open.
@@ -185,8 +192,8 @@ codesign -fs 'yabai-cert' $(which yabai)
         <li>
           The `am.stage_apps()` call moves all windows to the last availabe
           space to prep them for moving to their final locaitons. This is
-          necessary because things don't work right if an app is already on a
-          window you tell it to move to.
+          necessary because things don&apos;t work right if an app is already on
+          a window you tell it to move to.
         </li>
         <li>
           The spces can be spread across multiple monitors. The listed Desktop
@@ -206,8 +213,8 @@ codesign -fs 'yabai-cert' $(which yabai)
             src="am.move_app_to_space('App Name', #)"
             language="python"
           />
-          where 'App Name' is the name of your app and `#` is the space number
-          to move to. For example:
+          where &apos;App Name&apos; is the name of your app and `#` is the
+          space number to move to. For example:
           <CodeBlock
             src="am.move_app_to_space('Discord', 6)"
             language="python"
@@ -217,16 +224,16 @@ codesign -fs 'yabai-cert' $(which yabai)
         <li>
           The other command to move a window to a space is
           `am.insert_from_anchor()` It looks like this:
-          <pre>
-            <code>
-              am.insert_from_anchor('iTerm2', 'west', 'Google Chrome')
-            </code>
-          </pre>
+          <CodeBlock
+            src={`am.insert_from_anchor('iTerm2', 'west', 'Google Chrome')`}
+            language="python"
+          />
         </li>
 
         <li>
-          It places the second app (e.g. 'Google Chrome') next to the first app
-          (e.g. 'iTerm1') based on the requested direction (e.g. 'west')
+          It places the second app (e.g. &apos;Google Chrome&apos;) next to the
+          first app (e.g. &apos;iTerm1&apos;) based on the requested direction
+          (e.g. &apos;west&apos;)
         </li>
 
         <li>
@@ -242,9 +249,9 @@ codesign -fs 'yabai-cert' $(which yabai)
         </li>
 
         <li>
-          The name of the app isn't always what shows up in the menua bar. The
-          way to find them is to open the app and the then run this to find the
-          app name that Yabai sees:
+          The name of the app isn&apos;t always what shows up in the menua bar.
+          The way to find them is to open the app and the then run this to find
+          the app name that Yabai sees:
           <pre>
             <code>yabai -m query --windows</code>
           </pre>
@@ -253,8 +260,8 @@ codesign -fs 'yabai-cert' $(which yabai)
         </li>
 
         <li>
-          I the script doesn't complete a run, you'll sometimes see a red
-          overlay on one of the app windows where the next app was about to
+          I the script doesn&apos;t complete a run, you&apos;ll sometimes see a
+          red overlay on one of the app windows where the next app was about to
           move. I clear this by dragging another app window out it then fiddling
           with the script to figure out what went wrong.
         </li>
@@ -282,7 +289,13 @@ codesign -fs 'yabai-cert' $(which yabai)
           on. At the time of this writing, that path is
           `/opt/homebrew/bin/yabai`. If that&apos;s not where you yabai is, you
           can change the path by calling `am.yabai_path =
-          '/opt/homebrew/bin/yabai'` right after the `am = AppMover()`.
+          &apos;/opt/homebrew/bin/yabai&apos;` right after the `am =
+          AppMover()`.
+        </li>
+        <li>
+          TODO: Add note about this here and up top: In the Mission Control
+          preferences pane in System Preferences, the setting &quot;Displays have
+          separate Spaces&quot; must be enabled.
         </li>
       </ul>
     </>
