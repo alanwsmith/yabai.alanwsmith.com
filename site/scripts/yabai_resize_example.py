@@ -5,9 +5,77 @@ import subprocess
 import sys
 import time
 
+
+###########################################################
+# NOTE: Make sure that you manually open as many spaces
+# as you want to use via Mission Control: 
+#
+# https://support.apple.com/en-us/HT204100
+#
+# For the example, you'll need 3.
+###########################################################
+
+
+
+def move_things_into_place():
+
+    ###########################################################
+    # These lines set things up. You don't need 
+    # to mess with them
+
+    am = AppMover()
+    am.stage_apps()
+
+    ###########################################################
+    # This is the example run of the script. It uses apps
+    # that are installed by default so it should run with 
+    # no extra fiddling. Any other apps that you have open
+    # will end up on the last space you have open. (And
+    # remember that you'll need to have at least 3 open
+    # for the example to run properly
+    ###########################################################
+
+    ##### 
+    # Move Safari to space 1 
+    am.move_app_to_space('Safari', 1)
+
+    # Move Activity Monitor to the west (left) of Safari
+    am.insert_from_anchor('Safari', 'west', 'Activity Monitor')
+
+    # Move Terminal below Activity Monitor 
+    am.insert_from_anchor('Activity Monitor', 'south', 'Terminal')
+
+    # Move Dictionary to the west (left) of Dictionary 
+    am.insert_from_anchor('Terminal', 'west', 'Dictionary')
+
+    # Stack Console under Safari 
+    am.place_app_under_app("Console", "Safari")
+
+    # Expand Activity Monitor (and the apps under it) right
+    am.expand_right('Activity Monitor', 200)
+
+
+    ##### 
+    # Move Keychain Access to space 2
+    am.move_app_to_space('Keychain Access', 2)
+
+    ##### 
+    # Switch focus back to Safari 
+    am.focus_app('Safari')
+
+
+
+###########################################################
+# This is the class that executes your instructions. 
+# You don't need to do anything with it unless you 
+# want to hack around with it. 
+###########################################################
+
+
 class AppMover():
     def __init__(self):
         self.time_padding = 0.2
+        self.yabai_path = '/opt/homebrew/bin/yabai'
 
     def app_space_id(self, app):
         for window in self.windows():
@@ -17,22 +85,22 @@ class AppMover():
     def contract_bottom(self, app, amount):
         print(f"Contracting left: {app} - {amount}")
         self.focus_app(app)
-        subprocess.run(f"/opt/homebrew/bin/yabai -m window --resize bottom:0:-{amount}".split(' '), check=True)
+        subprocess.run(f"{self.yabai_path} -m window --resize bottom:0:-{amount}".split(' '), check=True)
 
     def contract_left(self, app, amount):
         print(f"Contracting left: {app} - {amount}")
         self.focus_app(app)
-        subprocess.run(f"/opt/homebrew/bin/yabai -m window --resize left:{amount}:0".split(' '), check=True)
+        subprocess.run(f"{self.yabai_path} -m window --resize left:{amount}:0".split(' '), check=True)
 
     def contract_right(self, app, amount):
         print(f"Contracting left: {app} - {amount}")
         self.focus_app(app)
-        subprocess.run(f"/opt/homebrew/bin/yabai -m window --resize right:-{amount}:0".split(' '), check=True)
+        subprocess.run(f"{self.yabai_path} -m window --resize right:-{amount}:0".split(' '), check=True)
 
     def contract_top(self, app, amount):
         print(f"Contracting left: {app} - {amount}")
         self.focus_app(app)
-        subprocess.run(f"/opt/homebrew/bin/yabai -m window --resize top:0:{amount}".split(' '), check=True)
+        subprocess.run(f"{self.yabai_path} -m window --resize top:0:{amount}".split(' '), check=True)
 
     def ensure_app_is_open(self, app):
         print(f"Ensuring {app} is open")
@@ -52,22 +120,22 @@ class AppMover():
     def expand_bottom(self, app, amount):
         print(f"Resizing left: {app} - {amount}")
         self.focus_app(app)
-        subprocess.run(f"/opt/homebrew/bin/yabai -m window --resize bottom:0:{amount}".split(' '), check=True)
+        subprocess.run(f"{self.yabai_path} -m window --resize bottom:0:{amount}".split(' '), check=True)
 
     def expand_left(self, app, amount):
         print(f"Resizing left: {app} - {amount}")
         self.focus_app(app)
-        subprocess.run(f"/opt/homebrew/bin/yabai -m window --resize left:-{amount}:0".split(' '), check=True)
+        subprocess.run(f"{self.yabai_path} -m window --resize left:-{amount}:0".split(' '), check=True)
 
     def expand_right(self, app, amount):
         print(f"Resizing left: {app} - {amount}")
         self.focus_app(app)
-        subprocess.run(f"/opt/homebrew/bin/yabai -m window --resize right:{amount}:0".split(' '), check=True)
+        subprocess.run(f"{self.yabai_path} -m window --resize right:{amount}:0".split(' '), check=True)
 
     def expand_top(self, app, amount):
         print(f"Resizing left: {app} - {amount}")
         self.focus_app(app)
-        subprocess.run(f"/opt/homebrew/bin/yabai -m window --resize top:0:-{amount}".split(' '), check=True)
+        subprocess.run(f"{self.yabai_path} -m window --resize top:0:-{amount}".split(' '), check=True)
 
     def focus_app(self, app):
         print(f"Switching focus to {app}")
@@ -81,7 +149,7 @@ class AppMover():
         print(f"Focusing: {app}")
         for window in self.windows():
             if window['app'] == app:
-                subprocess.run(f"/opt/homebrew/bin/yabai -m window --focus {window['id']}".split(' '), check=True)
+                subprocess.run(f"{self.yabai_path} -m window --focus {window['id']}".split(' '), check=True)
                 for i in range(1,14):
                     print(f"Checking focus on: {app}")
                     for check_window in self.windows():
@@ -98,7 +166,7 @@ class AppMover():
     def insert_from_anchor(self, anchor_app, direction, new_app):
         print(f"Insert from anchor: {anchor_app} - {direction} - {new_app}")
         self.focus_app(anchor_app)
-        subprocess.run(f"/opt/homebrew/bin/yabai -m window --insert {direction}".split(' '), check=True)
+        subprocess.run(f"{self.yabai_path} -m window --insert {direction}".split(' '), check=True)
         self.move_app_to_space(new_app, self.app_space_id(anchor_app))
 
     def move_app_to_space(self, app, space):
@@ -108,7 +176,7 @@ class AppMover():
         else:
             # TODO: Make this a recursive function instead of copy paste    
             self.focus_app(app)
-            subprocess.run(f"/opt/homebrew/bin/yabai -m window --space {space}".split(' '), check=True)
+            subprocess.run(f"{self.yabai_path} -m window --space {space}".split(' '), check=True)
             print(f"Confirming {app} moved to space {space}")
             for i in range(1, 20):
                 if self.app_space_id(app) == space:
@@ -120,7 +188,7 @@ class AppMover():
 
             print("- Move didn't work. Trying again")
             self.focus_app(app)
-            subprocess.run(f"/opt/homebrew/bin/yabai -m window --space {space}".split(' '), check=True)
+            subprocess.run(f"{self.yabai_path} -m window --space {space}".split(' '), check=True)
             for i in range(1, 30):
                 if self.app_space_id(app) == space:
                     print(f"- Moved: {app} to: {space}")
@@ -131,7 +199,7 @@ class AppMover():
 
             print("- Move didn't work. Trying again")
             self.focus_app(app)
-            subprocess.run(f"/opt/homebrew/bin/yabai -m window --space {space}".split(' '), check=True)
+            subprocess.run(f"{self.yabai_path} -m window --space {space}".split(' '), check=True)
             for i in range(1, 30):
                 if self.app_space_id(app) == space:
                     print(f"- Moved: {app} to: {space}")
@@ -152,7 +220,7 @@ class AppMover():
             return False
         else:
             self.focus_app(upper_app)
-            subprocess.run(f"/opt/homebrew/bin/yabai -m window --insert stack".split(' '), check=True)
+            subprocess.run(f"{self.yabai_path} -m window --insert stack".split(' '), check=True)
             self.focus_app(lower_app)
             self.move_app_to_space(lower_app, self.app_space_id(upper_app))
             print(f"Placed: {lower_app} under {upper_app}")
@@ -165,7 +233,7 @@ class AppMover():
         return None
 
     def spaces(self):
-        results = subprocess.run(['/opt/homebrew/bin/yabai', '-m', 'query', '--spaces'], capture_output=True, check=True)
+        results = subprocess.run([self.yabai_path, '-m', 'query', '--spaces'], capture_output=True, check=True)
         return json.loads(results.stdout.decode('utf-8'))
 
     def stage_apps(self):
@@ -175,39 +243,9 @@ class AppMover():
                 self.move_app_to_space(window['app'], staging_space)
 
     def windows(self):
-        results = subprocess.run('/opt/homebrew/bin/yabai -m query --windows'.split(' '), capture_output=True)
+        results = subprocess.run(f'{self.yabai_path} -m query --windows'.split(' '), capture_output=True)
         return json.loads(results.stdout.decode('utf-8'))
 
 
 if __name__ == "__main__":
-    am = AppMover()
-    am.time_padding = 0.2
-
-    am.stage_apps()
-
-    am.move_app_to_space('Adobe Photoshop 2022', 2)
-    am.move_app_to_space('Code', 5)
-    am.move_app_to_space('Discord', 6)
-    am.move_app_to_space('Music', 7)
-    am.move_app_to_space('1Password 7', 8)
-    am.move_app_to_space('Keychain Access', 9)
-
-    am.move_app_to_space('iTerm2', 1)
-    am.insert_from_anchor('iTerm2', 'west', 'Google Chrome')
-    am.expand_left('iTerm2', 660)
-    am.insert_from_anchor('iTerm2', 'north', 'GitHub Desktop')
-    am.expand_top('iTerm2', 390)
-    am.insert_from_anchor('iTerm2', 'south', 'CodeRunner')
-    am.expand_bottom('iTerm2', 130)
-    am.insert_from_anchor('CodeRunner', 'east', 'DBeaver Community')
-    am.insert_from_anchor('Google Chrome', 'south', 'nvALT')
-    am.insert_from_anchor('iTerm2', 'east', 'Sublime Text')
-    am.expand_right('iTerm2', 300)
-    am.insert_from_anchor('GitHub Desktop', 'east', 'Safari')
-    am.expand_right('GitHub Desktop', 140)
-
-    am.place_app_under_app("Soulver 3", "Google Chrome")
-
-    am.focus_app('Music')
-    am.focus_app('iTerm2')
-
+    move_things_into_place()
