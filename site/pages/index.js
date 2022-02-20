@@ -1,18 +1,10 @@
 import HeadTag from '../components/HeadTag'
 import CodeBlock from '../components/CodeBlock'
 import Image from 'next/image'
-import yabai_layout_script_example from '../images/yabai_layout_script_example.webp'
-import yabai_resize_example from '../images/yabai_resize_example.webp'
+import yabai_layout_script_example from '../images/yabai_layout_script_example.gif'
+import yabai_resize_example from '../images/yabai_resize_example.gif'
 
 export default function HomePage() {
-  const exampleCode = `
-const some_var = 'a value'
-const some_object = { key: 'value' }
-`
-
-  const asdf = `
-      `
-
   return (
     <>
       <HeadTag
@@ -293,9 +285,37 @@ codesign -fs 'yabai-cert' $(which yabai)
           AppMover()`.
         </li>
         <li>
-          TODO: Add note about this here and up top: In the Mission Control
-          preferences pane in System Preferences, the setting &quot;Displays have
-          separate Spaces&quot; must be enabled.
+          TODO: Add note about this here and up top (in the quick start): In the
+          Mission Control preferences pane in System Preferences, the setting
+          &quot;Displays have separate Spaces&quot; must be enabled.
+        </li>
+        <li>
+          Also add a line about this to the quick start: yabai must be given
+          permission to utilize the Accessibility API and will request access
+          upon launch. The application must be restarted after access has been
+          granted.
+        </li>
+        <li>
+          Add note about how apps might have different names when trying to open
+          them (e.g. Code vs Visual Studio Code or whatever the actual name to
+          open it is)
+        </li>
+        <li>
+          TODO: Make this better: Stacking one app under another doesn&apos;t
+          always put the right one in place right now
+        </li>
+        <li>
+          TODO: Put in note about running window command to figure out the name
+          of the window and how it freaks out if they are different and it tries
+          to open it because the name change isn&apos;t currently handled
+        </li>
+        <li>
+          TODO: Add note about how if the stage space gets full it might not be
+          able to move stuff to it which will halt the script. This appears to
+          happen with apps that are locked to a minimum size which causes part
+          of their window to extend to another display which confuses the
+          script. Not totally sure that&apos;s what&apos;s happening but it
+          seems like it.
         </li>
       </ul>
     </>
