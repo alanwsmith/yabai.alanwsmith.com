@@ -82,9 +82,12 @@ sudo yabai --load-sa
           <a href="https://support.apple.com/en-us/HT204100">Mission Control</a>
         </li>
         <li>
-          Download TKTKTKT this script, tweak the layout commands at the bottom,
-          and run it with:
-          <CodeBlock src="python3 4k_main.py" language="bash" />
+          Download{' '}
+          <a href="https://github.com/alanwsmith/yabai.alanwsmith.com/blob/main/site/scripts/yabai_resize_example.py">
+            this script
+          </a>
+          , tweak the layout commands at the bottom, and run it with:
+          <CodeBlock src="python3 yabai_resize_example.py" language="bash" />
         </li>
       </ul>
 
@@ -135,11 +138,16 @@ codesign -fs 'yabai-cert' $(which yabai)
         some system level security stuff that I prefer to leave on.
       </p>
 
-      <h2>Running The Scripts</h2>
+      <h2>Downloading And Running The Scripts</h2>
+      <p>
+        You can download the{' '}
+        <a href="https://github.com/alanwsmith/yabai.alanwsmith.com/blob/main/site/scripts/yabai_resize_example.py">
+          example script here.
+        </a>
+      </p>
 
       <p>
-        The scripts are written in python3 and make calls to the yabai command
-        line{' '}
+        It&apos;s written in python3 and make calls to the yabai command line{' '}
         <a href="https://github.com/koekeishiya/yabai/wiki/Commands#message-passing-interface">
           message passing interface
         </a>
@@ -148,12 +156,7 @@ codesign -fs 'yabai-cert' $(which yabai)
         other installs like:
       </p>
 
-      <CodeBlock src={`python3 4k_main.py`} language="bash" />
-
-      <p>
-        The `4k_main.py` is the most put together script. I recommend it as a
-        starting point for making your own.
-      </p>
+      <CodeBlock src={`python3 yabai_resize_example.py`} language="bash" />
 
       <h2>The Gory Details</h2>
 
@@ -162,13 +165,19 @@ codesign -fs 'yabai-cert' $(which yabai)
           You'll need to have already created your spaces prior to running the
           script
         </li>
+        <li>
+          The script will attempt to open apps if they aren&apos;t already open.
+          It waits a while but will time out if the app doesn&apos;t open in a
+          reasonable time. That timeout is adjustable in the
+          `.ensure_app_is_open()` funciton.
+        </li>
 
         <li>
-          The `am.time_padding` setting adds a little delay between movements.
-          This is in place because of the lack of feedback from the command
-          calls to yabai. If your script doesn't complete, it's worth playing
-          with this to lengthen the time a little to see if that's what the
-          problem is.
+          There&apos;s some delays inserted between certain actions. It&apos;
+          covers everything in my testing, but different environments may have
+          different results. If the script times out, adjust the time with
+          `am.time_padding = 0.3` (or longer) on a line right after the `am =
+          AppMover()` line.
         </li>
 
         <li>
@@ -176,6 +185,10 @@ codesign -fs 'yabai-cert' $(which yabai)
           space to prep them for moving to their final locaitons. This is
           necessary because things don't work right if an app is already on a
           window you tell it to move to.
+        </li>
+        <li>
+          The spces can be spread across multiple monitors. The listed Desktop
+          number in Mission Control is cohesive across them.
         </li>
 
         <li>
@@ -242,6 +255,32 @@ codesign -fs 'yabai-cert' $(which yabai)
           overlay on one of the app windows where the next app was about to
           move. I clear this by dragging another app window out it then fiddling
           with the script to figure out what went wrong.
+        </li>
+        <li>
+          Look at the .yabrc file for how to setup apps to not be controlled by
+          yabai so they always float (e.g. I let the finder always be floating)
+        </li>
+        <li>
+          Some apps have minimum dimensions. If you try to place them in smaller
+          areas they stick out and sometimes mess with other windows
+        </li>
+        <li>
+          You always want to end the script with a `.fouce_app()` call. Without
+          that, sometimes the focus stays on an app in a difference space and
+          when you type it goes to that and you can&apos;t see it
+        </li>
+        <li>
+          Sometimes swithing to apps in Yabai doesn&apos;t work properly. For
+          example, if you have Finder on a space that&apos;s not in focus you
+          may not be able to CMD+Tab to it or bring it up from Spotlight or an
+          app switcher.
+        </li>
+        <li>
+          The python process is not aware of the homebrew path yabai is sitting
+          on. At the time of this writing, that path is
+          `/opt/homebrew/bin/yabai`. If that&apos;s not where you yabai is, you
+          can change the path by calling `am.yabai_path =
+          '/opt/homebrew/bin/yabai'` right after the `am = AppMover()`.
         </li>
       </ul>
     </>
