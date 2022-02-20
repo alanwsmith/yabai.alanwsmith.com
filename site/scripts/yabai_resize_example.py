@@ -5,31 +5,34 @@ import subprocess
 import sys
 import time
 
+
+###########################################################
+# NOTE: Make sure that you manually open as many spaces
+# as you want to use via Mission Control: 
+#
+# https://support.apple.com/en-us/HT204100
+#
+# For the example, you'll need 3.
+###########################################################
+
+
+
 def move_things_into_place():
 
     ###########################################################
-    # NOTE: Make sure that you manually open as many spaces
-    # as you want to use via Mission Control: 
-    #
-    # https://support.apple.com/en-us/HT204100
-    #
-    ###########################################################
+    # These lines set things up. You don't need 
+    # to mess with them
 
     am = AppMover()
-
-    ###########################################################
-    # This is the basic prep that moves everything to
-    # the last space in preperation to. You shouldn't need
-    # to mess with it.
-    ###########################################################
-
     am.stage_apps()
 
     ###########################################################
-    # This is where you do all the layout setup. These 
-    # examples should get you started. Note that you'll need
-    # 3 spaces open in Mission Control for the example
-    # to run properly.
+    # This is the example run of the script. It uses apps
+    # that are installed by default so it should run with 
+    # no extra fiddling. Any other apps that you have open
+    # will end up on the last space you have open. (And
+    # remember that you'll need to have at least 3 open
+    # for the example to run properly
     ###########################################################
 
     ##### 
