@@ -293,9 +293,15 @@ codesign -fs 'yabai-cert' $(which yabai)
           AppMover()`.
         </li>
         <li>
-          TODO: Add note about this here and up top: In the Mission Control
-          preferences pane in System Preferences, the setting &quot;Displays have
-          separate Spaces&quot; must be enabled.
+          TODO: Add note about this here and up top (in the quick start): In the
+          Mission Control preferences pane in System Preferences, the setting
+          &quot;Displays have separate Spaces&quot; must be enabled.
+        </li>
+        <li>
+          Also add a line about this to the quick start: yabai must be given
+          permission to utilize the Accessibility API and will request access
+          upon launch. The application must be restarted after access has been
+          granted.
         </li>
       </ul>
     </>
