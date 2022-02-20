@@ -24,6 +24,8 @@ const some_object = { key: 'value' }
       />
 
       <h1>Yabai Automatic Layout Scripts</h1>
+      
+      <p>NOTE: This page is still a work in progress</p>
 
       <p>
         I'm using the <a href="https://github.com/koekeishiya/yabai">Yabai</a>{' '}
