@@ -1,10 +1,28 @@
 import HeadTag from '../components/HeadTag'
 import CodeBlock from '../components/CodeBlock'
-import Image from 'next/image'
-import yabai_layout_script_example from '../images/yabai_layout_script_example.gif'
-import yabai_resize_example from '../images/yabai_resize_example.gif'
+// import Image from 'next/image'
+// import yabai_layout_script_example from '../images/yabai_layout_script_example.gif'
+// import yabai_resize_example from '../images/yabai_resize_example.gif'
 
 export default function HomePage() {
+  const holding = `
+
+      <div className="pb-6">
+        <Image
+          src={yabai_layout_script_example}
+          alt="An animated image showing application windows moving and resizing on a desktop space automatically"
+        />
+      </div>
+
+      <div className="pb-6">
+        <Image
+          src={yabai_resize_example}
+          alt="An animated image showing a mouse dragging one applicaiton window and all the surrounding windows adjusting automatically"
+        />
+      </div>
+
+      `
+
   return (
     <>
       <HeadTag
@@ -33,12 +51,10 @@ export default function HomePage() {
 
       <p>It looks like this:</p>
 
-      <div className="pb-6">
-        <Image
-          src={yabai_layout_script_example}
-          alt="An animated image showing application windows moving and resizing on a desktop space automatically"
-        />
-      </div>
+      <img
+        src="/webp-files/yabai_layout_script_example.webp"
+        alt="Application windows being put on a desktop and automatically resized to fit in a way where they are all visible"
+      />
 
       <h2>TL;DR - Setup And Run</h2>
 
@@ -95,13 +111,6 @@ sudo yabai --load-sa
         After the windows are are in place, you can drag them around and
         everything resizes automaticaly. It&apos;s like magic.
       </p>
-
-      <div className="pb-6">
-        <Image
-          src={yabai_resize_example}
-          alt="An animated image showing a mouse dragging one applicaiton window and all the surrounding windows adjusting automatically"
-        />
-      </div>
 
       <h2>Yabai Installation Details</h2>
 
