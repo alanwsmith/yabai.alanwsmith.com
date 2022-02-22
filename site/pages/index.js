@@ -7,20 +7,6 @@ import CodeBlock from '../components/CodeBlock'
 export default function HomePage() {
   const holding = `
 
-      <div className="pb-6">
-        <Image
-          src={yabai_layout_script_example}
-          alt="An animated image showing application windows moving and resizing on a desktop space automatically"
-        />
-      </div>
-
-      <div className="pb-6">
-        <Image
-          src={yabai_resize_example}
-          alt="An animated image showing a mouse dragging one applicaiton window and all the surrounding windows adjusting automatically"
-        />
-      </div>
-
       `
 
   return (
@@ -111,6 +97,10 @@ sudo yabai --load-sa
         After the windows are are in place, you can drag them around and
         everything resizes automaticaly. It&apos;s like magic.
       </p>
+      <img
+        src="/webp-files/yabai_movement_example.webp"
+        alt="An animated image showing a mouse dragging one applicaiton window and all the surrounding windows adjusting automatically"
+      />
 
       <h2>Yabai Installation Details</h2>
 
