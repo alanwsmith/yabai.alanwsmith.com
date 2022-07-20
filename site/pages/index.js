@@ -42,7 +42,7 @@ export default function HomePage() {
         alt="Application windows being put on a desktop and automatically resized to fit in a way where they are all visible"
       />
 
-      <p>I'll add more details later, but the scripts are <a href="https://github.com/alanwsmith/dotfiles.alanwsmith.com/tree/main/dotfiles/yabai/resize-scripts">here</a> if you want to poke around with them</p>
+      <p>I will add more details later, but the scripts are <a href="https://github.com/alanwsmith/dotfiles.alanwsmith.com/tree/main/dotfiles/yabai/resize-scripts">here</a> if you want to poke around with them</p>
 
     </>
   )
